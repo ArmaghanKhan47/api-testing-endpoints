@@ -51,11 +51,13 @@
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
                     @foreach ($user->apis as $api)
-                    <div class="flex justify-between items-center">
-                        <span class="text-green-700 font-bold mx-5">{{ $api->method }}</span>
-                        <span class="mx-5">{{ $api->name }}</span>
-                        <span class="mx-5">/api/{{$user->username}}/{{ $api->slug }}/</span>
-                    </div>
+                    <a href="{{ route('api.show', $api) }}">
+                        <div class="grid grid-cols-3 grid-rows-1 hover:bg-slate-100 rounded-md">
+                            <span class="text-green-700 font-bold col-span-1">{{ $api->method }}</span>
+                            <span class="col-span-1">{{ $api->name }}</span>
+                            <span class="col-span-1">/api/{{$user->username}}/{{ $api->slug }}/</span>
+                        </div>
+                    </a>
                     @endforeach
                 </div>
             </div>

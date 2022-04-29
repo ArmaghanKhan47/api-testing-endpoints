@@ -66,6 +66,8 @@ class ApiController extends Controller
     public function show(Api $api)
     {
         //
+        $data['api'] = $api;
+        return view('api.show', $data);
     }
 
     /**

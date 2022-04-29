@@ -18,7 +18,7 @@ class CreateApisTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('slug');
-            $table->string('method');
+            $table->string('method')->default('GET');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

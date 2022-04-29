@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Api;
+use App\Models\User;
+use App\Services\RequestMethodValidator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
@@ -15,7 +18,8 @@ class ApiController extends Controller
     public function index()
     {
         //
-        return view('api.index');
+        $data['user'] = User::with('apis')->find(Auth::id());
+        return view('api.index', $data);
     }
 
     /**
@@ -37,6 +41,20 @@ class ApiController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255']
+        ]);
+
+        $user = User::find(Auth::id());
+
+        $user->apis()->create([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'method' => 'GET'
+        ]);
+
+        return back()->with('success', 'API Created Successfully');
     }
 
     /**
@@ -82,5 +100,9 @@ class ApiController extends Controller
     public function destroy(Api $api)
     {
         //
+    }
+
+    public function hit(Request $request, $username , Api $api){
+        return $api;
     }
 }

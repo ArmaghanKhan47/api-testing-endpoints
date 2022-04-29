@@ -29,4 +29,3 @@ Route::group([
 ], function(){
     Route::resource('/api', ApiController::class);
 });
-

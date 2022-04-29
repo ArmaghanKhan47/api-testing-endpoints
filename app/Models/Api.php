@@ -9,6 +9,12 @@ class Api extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'method'
+    ];
+
     public function creator(){
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

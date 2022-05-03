@@ -20,7 +20,7 @@
                     <div class="grid grid-cols-2 grid-rows-1">
                         <span>API Route</span>
                         <a href="{{ route('api.hit', [ 'username' => Auth::user()->username, 'api' => $api->slug ]) }}" target="_blank">
-                            <span>/api/{{Auth::user()->username}}/{{ $api->slug }}</span>
+                            <span>/api/{{Auth::user()->username}}/{{ $api->slug }}</span><span><i class="fa-solid fa-arrow-up-right-from-square text-gray-400 px-1"></i></span>
                         </a>
                     </div>
 

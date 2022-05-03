@@ -1133,6 +1133,9 @@ select {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
 }
+.underline-offset-8 {
+  text-underline-offset: 8px;
+}
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

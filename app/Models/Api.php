@@ -12,7 +12,8 @@ class Api extends Model
     protected $fillable = [
         'name',
         'slug',
-        'method'
+        'method',
+        'structure'
     ];
 
     public function creator(){

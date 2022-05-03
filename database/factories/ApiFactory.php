@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ApiFactory extends Factory
 {
@@ -13,10 +14,16 @@ class ApiFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->name();
         return [
-            'name' => $this->faker->name(),
-            'slug' => $this->faker->slug(),
-            'method' => 'GET' 
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'method' => 'GET',
+            'structure' => json_encode([
+                'first_name' => 'firstName',
+                'last_name' => 'lastName',
+                'state' => 'state'
+            ])
         ];
     }
 }

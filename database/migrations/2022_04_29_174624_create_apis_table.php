@@ -19,6 +19,7 @@ class CreateApisTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('method')->default('GET');
+            $table->json('structure')->default('{}');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

@@ -25,6 +25,7 @@
                         <div>
                             <x-label for="name" :value="__('API Slug')" />
                             <x-input id="name" class="block mt-1 w-full" type="text" name="slug" :value="old('slug')" required />
+                            <x-label>your api route will be /api/{{Auth::user()->username}}/{slug}</x-label>
                         </div>
                         <!-- Method -->
                         <div class="mt-4">

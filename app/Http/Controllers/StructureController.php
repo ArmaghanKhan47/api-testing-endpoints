@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Api;
-use App\Models\User;
-use App\Services\FakerServices;
-use App\Services\JsonResponseBodyCreator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ApiController extends Controller
+class StructureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +15,6 @@ class ApiController extends Controller
     public function index()
     {
         //
-        $data['user'] = User::with('apis')->find(Auth::id());
-        return view('api.index', $data);
     }
 
     /**
@@ -42,43 +36,43 @@ class ApiController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255']
+        $existing = (array) json_decode($request->existing);
+        $new = json_decode($request->new);
+        if($new){
+            foreach($new as $field){
+                if($field->name && $field->type){
+                    $existing[$field->name] = $field->type;
+                }
+            }
+        }
+        Api::find($request->api_key)->update([
+            'structure' => json_encode($existing)
         ]);
-
-        $user = User::find(Auth::id());
-
-        $user->apis()->create([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'method' => 'GET'
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'structure updated successfully',
+            'data' => json_encode($existing)
         ]);
-
-        return back()->with('success', 'API Created Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Api  $api
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Api $api)
+    public function show($id)
     {
         //
-        $data['api'] = $api;
-        $data['methods'] = (new FakerServices())->getAvailableFunctions();
-        return view('api.show', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Api  $api
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Api $api)
+    public function edit($id)
     {
         //
     }
@@ -87,10 +81,10 @@ class ApiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Api  $api
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Api $api)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -98,15 +92,11 @@ class ApiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Api  $api
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Api $api)
+    public function destroy($id)
     {
         //
-    }
-
-    public function hit(Request $request, $username , Api $api){
-        return JsonResponseBodyCreator::create($api);
     }
 }

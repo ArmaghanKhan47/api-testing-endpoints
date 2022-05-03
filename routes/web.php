@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\StructureController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,5 @@ Route::group([
     'middleware' => 'auth'
 ], function(){
     Route::resource('/api', ApiController::class);
+    Route::resource('/api/structure', StructureController::class);
 });

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="pt-12 pb-1">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="py-12">
+    <div class="py-1">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -53,7 +53,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     @foreach ($user->apis as $api)
                     <a href="{{ route('api.show', $api) }}">
-                        <div class="grid grid-cols-3 grid-rows-1 hover:bg-slate-100 rounded-md">
+                        <div class="grid grid-cols-3 grid-rows-1 hover:bg-slate-100 rounded-md p-2">
                             <span class="text-green-700 font-bold col-span-1">{{ $api->method }}</span>
                             <span class="col-span-1">{{ $api->name }}</span>
                             <span class="col-span-1">/api/{{$user->username}}/{{ $api->slug }}/</span>

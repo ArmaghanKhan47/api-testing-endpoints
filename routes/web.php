@@ -30,6 +30,8 @@ require __DIR__.'/auth.php';
 Route::group([
     'middleware' => 'auth'
 ], function(){
-    Route::resource('/api', ApiController::class);
+    Route::resource('/api', ApiController::class)->scoped([
+        'api' => 'slug'
+    ]);
     Route::resource('/api/structure', StructureController::class);
 });
